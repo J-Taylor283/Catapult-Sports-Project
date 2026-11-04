@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catapult Sports | About Us</title>
+<style>
+  :root {
+    --night: #0E1B2C;
+    --steel: #1F3550;
+    --volt: #FF6B1A;
+    --turf: #2FB36D;
+    --mist: #EAF0F6;
+    --ink: #14202E;
+    --white: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  /* Body Font & Base Background matching index & page2 */
+  body {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: var(--mist);
+    line-height: 1.6;
+  }
+
+  /* Shared Heading Typography */
+  h1, h2, h3 {
+    font-family: "Arial Black", "Segoe UI", Arial, sans-serif;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+  }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 3px solid var(--volt);
+    outline-offset: 3px;
+  }
+
+  /* Header */
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 6vw;
+    background: var(--night);
+    color: var(--white);
+  }
+  .logo { font-family: "Arial Black", Arial, sans-serif; font-size: 1.35rem; }
+  .logo span { color: var(--volt); }
+  nav a { color: #b8c7d9; text-decoration: none; margin-left: 20px; font-weight: 600; font-size: 0.95rem; }
+  nav a:hover, nav a[aria-current] { color: var(--volt); }
+
+  /* Hero Section Background matching index & page2 */
+  .hero {
+    padding: 70px 6vw;
+    color: var(--white);
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 2px, transparent 2px 90px),
+      linear-gradient(160deg, var(--night), var(--steel));
+  }
+  .hero h1 { font-size: clamp(2.2rem, 5.5vw, 3.7rem); margin-bottom: 16px; }
+  .hero p { color: #b8c7d9; max-width: 660px; font-size: 1.05rem; }
+
+  /* Layout & Section Containers */
+  section { padding: 70px 6vw; }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  .head { max-width: 640px; margin-bottom: 34px; }
+  .head h2 { font-size: 2.1rem; margin-bottom: 8px; color: var(--night); }
+  .head p { color: #44566a; }
+
+  /* Alternating Background Rhythm */
+  .bg-white { background: var(--white); }
+  .bg-mist  { background: var(--mist); }
+
+  /* Panel, Cards & Founder Containers */
+  .panel, .founder, .faq-item {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 24px;
+    border: 2px solid var(--white);
+    box-shadow: 0 4px 14px rgba(14, 27, 44, 0.04);
+  }
+  .bg-white .panel, 
+  .bg-white .founder, 
+  .bg-white .faq-item {
+    background: var(--mist);
+    border-color: var(--mist);
+  }
+
+  .panel p, .founder p, .faq-item p { color: #44566a; margin-top: 10px; font-size: 0.95rem; }
+
+  /* Origin Story Section */
+  .story-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 26px; align-items: stretch; }
+  .story-layout img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    max-height: 380px;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 2px solid rgba(14, 27, 44, 0.08);
+  }
+
+  /* Team Grid */
+  .founder-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+  .founder { border-top: 4px solid var(--volt); }
+  .founder h3 { font-size: 1.15rem; color: var(--night); }
+
+  /* Contact & Form */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .details h3 { font-size: 1.25rem; color: var(--night); margin-bottom: 14px; }
+  .details p { margin: 0 0 12px; color: #44566a; font-size: 0.95rem; }
+  .details strong { color: var(--night); }
+  form label { display: block; font-weight: 600; font-size: 0.9rem; color: var(--night); margin-top: 12px; }
+  input, textarea {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #9aaec2;
+    border-radius: 8px;
+    margin-top: 6px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background: var(--white);
+    color: var(--ink);
+  }
+  .btn-submit {
+    display: inline-block;
+    background: var(--volt);
+    color: var(--white);
+    border: 0;
+    border-radius: 8px;
+    padding: 13px 28px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: background 0.2s ease;
+  }
+  .btn-submit:hover { background: var(--night); }
+
+  /* Hours Grid */
+  .hours-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .hours-grid .panel { text-align: center; }
+  .hours-grid strong { color: var(--night); }
+
+  /* FAQ List */
+  .faq-item { margin-bottom: 16px; }
+  .faq-item h3 { font-size: 1.1rem; color: var(--night); }
+
+  /* Footer matching index & page2 */
+  footer {
+    background: #08111e;
+    color: #8ea0b5;
+    text-align: center;
+    padding: 26px 6vw;
+    font-size: 0.86rem;
+  }
+
+  @media (max-width: 700px) {
+    .story-layout, .contact-grid, .hours-grid { grid-template-columns: 1fr; }
+    nav a { margin: 0 14px 0 0; }
+    section { padding: 50px 5vw; }
+    .hero { padding: 55px 5vw; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="logo">Catapult <span>Sports</span></div>
+  <nav aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="page2.html">Products</a>
+    <a href="Webpage_3.html" aria-current="page">About Us</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <h1>About Catapult Sports</h1>
+    <p>Track Smarter. Train Stronger. Play Better. Meet the people and ideas behind our fictional sports technology business.</p>
+  </div>
+</div>
+
+<main>
+  <!-- Story Section (White Background) -->
+  <section id="story" class="bg-white">
+    <div class="wrap">
+      <div class="head">
+        <h2>The Origin Story</h2>
+        <p>From a campus track idea to data-driven athletic technology.</p>
+      </div>
+      <div class="story-layout">
+        <img alt="Soccer ball on a sports field" src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55">
+        <div class="panel">
+          <p>Catapult Sports was created from a simple idea: What if athletes and coaches could use GPS technology to improve performance?</p>
+          <p>Our fictional founding team consisted of college students who loved sports and technology. After noticing that coaches struggled to measure player movement and fatigue, they decided to create a GPS tracking system.</p>
+          <p>Their goal was to help teams understand how far athletes run, how fast they move, and how hard they work during games and practices. Today, our fictional Catapult team is dedicated to helping athletes train smarter using data.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section (Mist Background) -->
+  <section id="team" class="bg-mist">
+    <div class="wrap">
+      <div class="head">
+        <h2>The Team / Meet the Founders</h2>
+        <p>The minds engineering our performance monitoring tools.</p>
+      </div>
+      <div class="founder-grid">
+        <article class="founder">
+          <h3>Alex Carter &ndash; CEO</h3>
+          <p>Alex founded the company and oversees business operations. Alex is passionate about combining sports and technology.</p>
+        </article>
+        <article class="founder">
+          <h3>Jordan Lee &ndash; GPS Engineer</h3>
+          <p>Jordan develops the GPS tracking technology used to measure athlete movement, speed, and distance.</p>
+        </article>
+        <article class="founder">
+          <h3>Taylor Morgan &ndash; Data Analyst</h3>
+          <p>Taylor analyzes athlete performance data and helps coaches understand the results collected by the GPS devices.</p>
+        </article>
+        <article class="founder">
+          <h3>Casey Rivera &ndash; Marketing Director</h3>
+          <p>Casey promotes Catapult Sports and communicates with teams interested in using our tracking technology.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section (White Background) -->
+  <section id="contact" class="bg-white">
+    <div class="wrap">
+      <div class="head">
+        <h2>Contact form / Details</h2>
+        <p>Have questions about plans or field demos? Reach out to our team.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="panel details">
+          <h3>Get in Touch</h3>
+          <p><strong>Email:</strong> contact@catapultsports.example</p>
+          <p><strong>Phone:</strong> (803) 555-0142</p>
+          <p><strong>Location:</strong> University of South Carolina, Columbia, SC</p>
+          <p><strong>Instagram:</strong> @CatapultSportsDemo</p>
+          <p><strong>X (Twitter):</strong> @CatapultDemo</p>
+        </div>
+        <div class="panel">
+          <h3>Send Us a Message</h3>
+          <form onsubmit="alert('Thank you for your message! This is a demo form.'); return false;">
+            <label for="name">Name:</label>
+            <input id="name" name="name" required type="text">
+            
+            <label for="email">Email:</label>
+            <input id="email" name="email" required type="email">
+            
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required rows="4"></textarea>
+            
+            <button class="btn-submit" type="submit">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hours Section (Mist Background) -->
+  <section id="hours" class="bg-mist">
+    <div class="wrap">
+      <div class="head">
+        <h2>Hours of Operation</h2>
+        <p>Support and live assistance availability.</p>
+      </div>
+      <div class="hours-grid">
+        <div class="panel"><p><strong>Monday &ndash; Friday:</strong> 9:00 AM &ndash; 6:00 PM</p></div>
+        <div class="panel"><p><strong>Saturday:</strong> 10:00 AM &ndash; 4:00 PM</p></div>
+        <div class="panel"><p><strong>Sunday:</strong> Closed</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section (White Background) -->
+  <section id="faq" class="bg-white">
+    <div class="wrap">
+      <div class="head">
+        <h2>Frequently Asked Questions</h2>
+        <p>Quick answers regarding device hardware and platform specs.</p>
+      </div>
+      <article class="faq-item">
+        <h3>1. What does Catapult Sports do?</h3>
+        <p>We use GPS tracking technology to measure athlete speed, distance, and movement during practices and games.</p>
+      </article>
+      <article class="faq-item">
+        <h3>2. Who can use our technology?</h3>
+        <p>Our products are designed for sports teams, coaches, and athletes who want to improve their performance.</p>
+      </article>
+      <article class="faq-item">
+        <h3>3. Can GPS tracking help prevent injuries?</h3>
+        <p>GPS data helps coaches monitor athlete workloads and identify potential fatigue, which can support injury prevention efforts.</p>
+      </article>
+      <article class="faq-item">
+        <h3>4. What sports can use Catapult technology?</h3>
+        <p>Our technology can be used in football, soccer, basketball, rugby, and many other sports.</p>
+      </article>
+      <article class="faq-item">
+        <h3>5. Do athletes have to be professionals?</h3>
+        <p>No! Our fictional business wants to make sports tracking technology available to college, high school, and recreational athletes as well.</p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2026 Catapult Sports Class Project. Fictional business information for educational use.</p>
+</footer>
+
+</body>
+</html>

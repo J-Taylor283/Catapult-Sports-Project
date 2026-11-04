@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catapult Sports | Performance Tracking and Scouting</title>
+<style>
+  :root {
+    --night: #0E1B2C;
+    --steel: #1F3550;
+    --volt: #FF6B1A;
+    --turf: #2FB36D;
+    --mist: #EAF0F6;
+    --ink: #14202E;
+    --white: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; color: var(--ink); background: var(--mist); line-height: 1.6; }
+  h1, h2, h3 { font-family: "Arial Black", "Segoe UI", Arial, sans-serif; line-height: 1.12; letter-spacing: -0.01em; }
+  a:focus-visible { outline: 3px solid var(--volt); outline-offset: 3px; }
+
+  header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; padding: 16px 6vw; background: var(--night); color: var(--white); }
+  .logo { font-family: "Arial Black", Arial, sans-serif; font-size: 1.35rem; }
+  .logo span { color: var(--volt); }
+  nav a { color: #b8c7d9; text-decoration: none; margin-left: 20px; font-weight: 600; font-size: 0.95rem; }
+  nav a:hover, nav a[aria-current] { color: var(--volt); }
+
+  .hero { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 40px; padding: 70px 6vw; color: var(--white); background: repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 2px, transparent 2px 90px), linear-gradient(160deg, var(--night), var(--steel)); }
+  .hero-text { flex: 1 1 340px; max-width: 520px; }
+  .hero h1 { font-size: clamp(2.2rem, 5.5vw, 3.7rem); margin-bottom: 16px; }
+  .hero p { color: #b8c7d9; margin-bottom: 26px; font-size: 1.05rem; }
+  .btn { display: inline-block; background: var(--volt); color: var(--white); padding: 14px 28px; border-radius: 8px; font-weight: 700; text-decoration: none; }
+  .btn:hover { background: var(--white); color: var(--ink); }
+
+  .hero-visual { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: center; flex: 1 1 360px; }
+  .hero-image-wrap { flex: 1 1 260px; max-width: 380px; border-radius: 18px; overflow: hidden; border: 2px solid rgba(255, 255, 255, 0.15); box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35); }
+  .hero-image-wrap img { display: block; width: 100%; height: 100%; max-height: 380px; object-fit: cover; }
+
+  .tracker { flex: 0 0 260px; width: 260px; background: var(--night); border: 2px solid var(--volt); border-radius: 18px; padding: 20px; color: var(--white); box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35); }
+  .tracker .top { display: flex; justify-content: space-between; font-size: .85rem; color: #b8c7d9; margin-bottom: 14px; }
+  .tracker .live { color: var(--turf); font-weight: 700; }
+  .stat { margin-bottom: 12px; }
+  .stat label { display: block; font-size: .8rem; color: #b8c7d9; }
+  .stat strong { font-family: "Arial Black", Arial, sans-serif; font-size: 1.6rem; }
+  .bar { height: 8px; border-radius: 99px; background: var(--steel); margin-top: 4px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--volt); }
+  .bar i.g { background: var(--turf); }
+
+  section { padding: 70px 6vw; }
+  .head { max-width: 640px; margin-bottom: 34px; }
+  .head h2 { font-size: 2.1rem; margin-bottom: 8px; color: var(--night); }
+  .head p { color: #44566a; }
+  .about { background: var(--white); }
+  .grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .card { background: var(--white); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; border: 2px solid var(--white); }
+  .card-art { min-height: 130px; display: flex; align-items: center; justify-content: center; font-size: 3.6rem; background: linear-gradient(150deg, #B7E8CF, #5CCB95); }
+  .card-body { padding: 18px 20px 20px; }
+  .card h3 { font-size: 1.1rem; margin-bottom: 6px; color: var(--night); }
+  .card p { font-size: .92rem; color: #44566a; }
+  .review { background: var(--night); color: var(--white); }
+  .review .head h2 { color: var(--white); }
+  .review blockquote { max-width: 800px; border-left: 4px solid var(--volt); padding: 4px 0 4px 22px; color: #b8c7d9; font-size: 1.05rem; }
+  .review cite { display: block; margin-top: 14px; color: var(--white); font-style: normal; font-weight: 700; }
+  footer { background: #08111e; color: #8ea0b5; text-align: center; padding: 26px 6vw; font-size: .86rem; }
+
+  @media (max-width: 640px) {
+    nav a { margin: 0 14px 0 0; }
+    .hero { padding: 55px 5vw; }
+    section { padding: 50px 5vw; }
+    .tracker { width: 100%; flex-basis: 100%; }
+    .hero-image-wrap { width: 100%; flex-basis: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<header id="top">
+  <div class="logo">Catapult <span>Sports</span></div>
+  <nav aria-label="Main navigation">
+    <a href="#top" aria-current="page">Home</a>
+    <a href="page2.html">Products</a>
+    <a href="Webpage_3.html">About Us</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Transforming athletic performance through data.</h1>
+      <p>Catapult Sports Project showcases how modern sports technology helps athletes, coaches, and teams track performance, improve training, and reduce injury risk.</p>
+      <a class="btn" href="page2.html">Explore our products</a>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-image-wrap">
+        <img src="4550.png" alt="Athletes training with Catapult GPS monitoring vests on the pitch">
+      </div>
+      <div class="tracker" role="img" aria-label="Sample athlete tracker dashboard">
+        <div class="top"><span>Player #12</span><span class="live">&#9679; LIVE</span></div>
+        <div class="stat"><label>Top speed</label><strong>21.4 mph</strong><div class="bar"><i style="width:86%"></i></div></div>
+        <div class="stat"><label>Distance covered</label><strong>4.8 mi</strong><div class="bar"><i class="g" style="width:64%"></i></div></div>
+        <div class="stat"><label>Workload</label><strong>312 pts</strong><div class="bar"><i style="width:72%"></i></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="head">
+      <h2>About Us</h2>
+      <p>We help sports organizations, schools, and fitness professionals make informed, data-driven decisions.</p>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <div class="card-art" role="img" aria-label="Performance tracking">&#127939;</div>
+        <div class="card-body"><h3>Performance Tracking</h3><p>Monitor speed, distance, acceleration, and player workload throughout practices and games.</p></div>
+      </article>
+      <article class="card">
+        <div class="card-art" role="img" aria-label="Athlete recovery" style="background:linear-gradient(150deg,#FFD2B3,#FF9A5C)">&#10003;</div>
+        <div class="card-body"><h3>Injury Prevention</h3><p>Identify fatigue and training risks early by keeping a close eye on athlete workloads.</p></div>
+      </article>
+      <article class="card">
+        <div class="card-art" role="img" aria-label="Sports data analytics" style="background:linear-gradient(150deg,#BCD3EE,#6E9BD0)">&#128202;</div>
+        <div class="card-body"><h3>Data Analytics</h3><p>Turn athlete performance data into clear, actionable insights for coaches and teams.</p></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="review">
+    <div class="head"><h2>Customer Review</h2></div>
+    <blockquote>
+      “The Catapult Sports platform helped our coaching staff better understand player workloads and improve performance throughout the season.”
+      <cite>Coach Taylor, Collegiate Athletics Program</cite>
+    </blockquote>
+  </section>
+</main>
+
+<footer>
+  <p>Mission Statement: Empowering athletes and coaches with technology that transforms performance into measurable results.</p>
+  <p>&copy; 2026 Catapult Sports Class Project. Fictional business information for educational use.</p>
+</footer>
+</body>
+</html>

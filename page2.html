@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catapult Sports | Performance Tracking and Scouting</title>
+<style>
+  :root {
+    --night: #0E1B2C;
+    --steel: #1F3550;
+    --volt: #FF6B1A;
+    --turf: #2FB36D;
+    --mist: #EAF0F6;
+    --ink: #14202E;
+    --white: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink); background: var(--mist); line-height: 1.6;
+  }
+  h1, h2, h3 { font-family: "Arial Black", "Segoe UI", Arial, sans-serif; line-height: 1.12; letter-spacing: -0.01em; }
+  a:focus-visible { outline: 3px solid var(--volt); outline-offset: 3px; }
+
+  header {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+    gap: 10px; padding: 16px 6vw; background: var(--night); color: var(--white);
+  }
+  .logo { font-family: "Arial Black", Arial, sans-serif; font-size: 1.35rem; }
+  .logo span { color: var(--volt); }
+  nav a { color: #b8c7d9; text-decoration: none; margin-left: 20px; font-weight: 600; font-size: 0.95rem; }
+  nav a:hover { color: var(--volt); }
+
+  .hero {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 40px;
+    padding: 70px 6vw; color: var(--white);
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 2px, transparent 2px 90px),
+      linear-gradient(160deg, var(--night), var(--steel));
+  }
+  .hero-text { flex: 1 1 340px; max-width: 580px; }
+  .hero h1 { font-size: clamp(2.2rem, 5.5vw, 3.7rem); margin-bottom: 16px; }
+  .hero p { color: #b8c7d9; margin-bottom: 26px; font-size: 1.05rem; }
+  .btn {
+    display: inline-block; background: var(--volt); color: var(--white);
+    padding: 14px 28px; border-radius: 8px; font-weight: 700; text-decoration: none;
+  }
+  .btn:hover { background: var(--white); color: var(--ink); }
+
+  .tracker {
+    flex: 0 0 280px; width: 280px; margin: 0 auto; background: var(--night);
+    border: 2px solid var(--volt); border-radius: 18px; padding: 20px; color: var(--white);
+  }
+  .tracker .top { display: flex; justify-content: space-between; font-size: 0.85rem; color: #b8c7d9; margin-bottom: 14px; }
+  .tracker .live { color: var(--turf); font-weight: 700; }
+  .stat { margin-bottom: 12px; }
+  .stat label { display: block; font-size: 0.8rem; color: #b8c7d9; }
+  .stat strong { font-family: "Arial Black", Arial, sans-serif; font-size: 1.6rem; }
+  .bar { height: 8px; border-radius: 99px; background: var(--steel); margin-top: 4px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--volt); }
+  .bar i.g { background: var(--turf); }
+
+  section { padding: 70px 6vw; }
+  .head { max-width: 640px; margin-bottom: 34px; }
+  .head h2 { font-size: 2.1rem; margin-bottom: 8px; color: var(--night); }
+  .head p { color: #44566a; }
+
+  .grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .card {
+    background: var(--white); border-radius: 16px; overflow: hidden;
+    display: flex; flex-direction: column; border: 2px solid var(--white);
+  }
+  .art { height: 130px; display: flex; align-items: center; justify-content: center; font-size: 3.6rem; }
+  .c1 { background: linear-gradient(150deg, #FFD2B3, #FF9A5C); }
+  .c2 { background: linear-gradient(150deg, #B7E8CF, #5CCB95); }
+  .c3 { background: linear-gradient(150deg, #BCD3EE, #6E9BD0); }
+  .c4 { background: linear-gradient(150deg, #FFE7A3, #F5C242); }
+  .c5 { background: linear-gradient(150deg, #C9D3E0, #8497AF); }
+  .body { padding: 18px 20px 20px; display: flex; flex-direction: column; flex: 1; }
+  .card h3 { font-size: 1.1rem; margin-bottom: 6px; color: var(--night); }
+  .card p { font-size: 0.92rem; color: #44566a; margin-bottom: 10px; }
+  .card ul { list-style: none; font-size: 0.86rem; margin-bottom: 14px; }
+  .card li { padding-left: 20px; position: relative; margin-bottom: 3px; }
+  .card li::before { content: "\2713"; position: absolute; left: 0; color: var(--turf); font-weight: bold; }
+  .price-row {
+    margin-top: auto; display: flex; justify-content: space-between; align-items: baseline;
+    padding-top: 12px; border-top: 2px solid var(--mist);
+  }
+  .price { font-family: "Arial Black", Arial, sans-serif; font-size: 1.5rem; color: var(--night); }
+  .unit { font-size: 0.82rem; color: #6a7b8e; }
+  .tag {
+    align-self: flex-start; background: var(--volt); color: var(--white);
+    font-size: 0.78rem; font-weight: 700; padding: 3px 12px; border-radius: 999px; margin-bottom: 8px;
+  }
+  .tag.green { background: var(--turf); }
+  .card.best { border-color: var(--volt); }
+
+  .how { background: var(--white); }
+  .steps { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px; }
+  .step {
+    flex: 1 1 220px; max-width: 290px; text-align: center; padding: 26px 20px;
+    background: var(--mist); border-radius: 16px;
+  }
+  .step .badge {
+    width: 80px; height: 80px; margin: 0 auto 12px; border-radius: 50%;
+    background: var(--night); display: flex; align-items: center; justify-content: center; font-size: 2.2rem;
+  }
+  .step .num {
+    display: inline-block; width: 30px; height: 30px; line-height: 30px; border-radius: 50%;
+    background: var(--volt); color: var(--white); font-weight: 700; margin-bottom: 6px;
+  }
+  .step h3 { font-size: 1.1rem; margin-bottom: 4px; color: var(--night); }
+  .step p { font-size: 0.92rem; color: #44566a; }
+  .arrow { font-size: 2.2rem; font-weight: bold; color: var(--volt); }
+
+  .promo {
+    background: var(--night); color: var(--white);
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 40px;
+  }
+  .promo .badge-big {
+    flex: 0 0 220px; height: 220px; border-radius: 50%; background: var(--volt);
+    display: flex; align-items: center; justify-content: center; font-size: 6rem; margin: 0 auto;
+  }
+  .promo-text { flex: 1 1 320px; max-width: 540px; }
+  .promo-text h2 { font-size: 2.1rem; margin-bottom: 10px; }
+  .promo-text p { color: #b8c7d9; margin-bottom: 20px; }
+  .code {
+    display: inline-block; border: 3px dashed var(--volt); color: var(--volt);
+    padding: 8px 22px; border-radius: 10px; font-size: 1.4rem; font-weight: 800;
+    letter-spacing: 3px; margin-bottom: 20px;
+  }
+  .promo .tag { display: inline-block; margin-bottom: 12px; }
+  .pricing { display: flex; align-items: baseline; gap: 14px; margin-bottom: 20px; }
+  .pricing .new { font-family: "Arial Black", Arial, sans-serif; font-size: 2.2rem; }
+  .pricing .old { color: #8ea0b5; text-decoration: line-through; font-size: 1.15rem; }
+  .fine { font-size: 0.82rem; color: #8ea0b5; margin-top: 14px; }
+  footer { background: #08111e; color: #8ea0b5; text-align: center; padding: 26px 6vw; font-size: 0.86rem; }
+
+  @media (max-width: 640px) {
+    .arrow { transform: rotate(90deg); width: 100%; text-align: center; }
+    nav a { margin: 0 14px 0 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<header id="top">
+  <div class="logo">Catapult <span>Sports</span></div>
+  <nav aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="#products" aria-current="page">Products</a>
+    <a href="Webpage_3.html">About Us</a>
+  </nav>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="hero-text">
+      <h1>Know your athletes before game day.</h1>
+      <p>Wearable GPS trackers and a scouting database that turn every practice, rep, and sprint into data your coaching staff can use.</p>
+      <a class="btn" href="#products">See our products</a>
+    </div>
+    <div class="tracker" role="img" aria-label="Sample athlete tracker dashboard">
+      <div class="top"><span>Player #12</span><span class="live">&#9679; LIVE</span></div>
+      <div class="stat"><label>Top speed</label><strong>21.4 mph</strong><div class="bar"><i style="width:86%"></i></div></div>
+      <div class="stat"><label>Distance covered</label><strong>4.8 mi</strong><div class="bar"><i class="g" style="width:64%"></i></div></div>
+      <div class="stat"><label>Workload</label><strong>312 pts</strong><div class="bar"><i style="width:72%"></i></div></div>
+    </div>
+  </div>
+
+  <section id="products">
+    <div class="head">
+      <h2>Our Products</h2>
+      <p>Five fictional tools for college football programs, from the field to the recruiting board.</p>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <div class="art c1" role="img" aria-label="Tracker vest illustration">&#129466;</div>
+        <div class="body">
+          <h3>Pulse GPS Vest</h3>
+          <p>A lightweight wearable that tracks speed, distance, and impact on every snap.</p>
+          <ul><li>Waterproof, 10-hour battery</li><li>Calibrated by our technicians</li></ul>
+          <div class="price-row"><span class="price">$1,200</span><span class="unit">per team set</span></div>
+        </div>
+      </article>
+      <article class="card best">
+        <div class="art c2" role="img" aria-label="Database illustration">&#128451;</div>
+        <div class="body">
+          <span class="tag">Bestseller</span>
+          <h3>Scout Database</h3>
+          <p>Search player physical attributes and metrics to decide who to pursue next.</p>
+          <ul><li>Annual subscription</li><li>Auto-synced tracker data</li><li>Accuracy-checked by our team</li></ul>
+          <div class="price-row"><span class="price">$4,500</span><span class="unit">per year</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="art c3" role="img" aria-label="Live feed illustration">&#128225;</div>
+        <div class="body">
+          <h3>Game Day Live</h3>
+          <p>Real-time sideline stats so coaches can sub smarter and keep players fresh.</p>
+          <ul><li>Live fatigue alerts</li><li>Tablet-ready dashboard</li></ul>
+          <div class="price-row"><span class="price">$2,300</span><span class="unit">per season</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="art c4" role="img" aria-label="Report illustration">&#128202;</div>
+        <div class="body">
+          <h3>Recovery Report</h3>
+          <p>A simple weekly summary showing who is ready to go and who needs rest.</p>
+          <ul><li>Delivered every Monday</li><li>Easy-to-read charts</li></ul>
+          <div class="price-row"><span class="price">$900</span><span class="unit">per season</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <div class="art c5" role="img" aria-label="Trophy illustration">&#127942;</div>
+        <div class="body">
+          <span class="tag green">Bundle deal</span>
+          <h3>The Championship Bundle</h3>
+          <p>Vests, Scout Database, and Game Day Live in one package for a full season.</p>
+          <ul><li>All three products</li><li>Priority support</li><li>Save $1,500</li></ul>
+          <div class="price-row"><span class="price">$6,500</span><span class="unit">was $8,000</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="how" id="how">
+    <div class="head">
+      <h2>How It Works</h2>
+      <p>Three steps from sign-up to smarter recruiting.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="badge" aria-hidden="true">&#128221;</div><span class="num">1</span><h3>Subscribe Online</h3><p>Pick a plan and get instant access to your player database.</p></div>
+      <div class="arrow" aria-hidden="true">&rarr;</div>
+      <div class="step"><div class="badge" aria-hidden="true">&#128752;</div><span class="num">2</span><h3>We Calibrate &amp; Track</h3><p>Our team sets up the trackers, and the data flows into your database automatically.</p></div>
+      <div class="arrow" aria-hidden="true">&rarr;</div>
+      <div class="step"><div class="badge" aria-hidden="true">&#127944;</div><span class="num">3</span><h3>Scout With Confidence</h3><p>Review checked, accurate metrics and choose the players to pursue.</p></div>
+    </div>
+  </section>
+
+  <section class="promo" id="promo">
+    <div class="badge-big" role="img" aria-label="Featured Scout Database">&#128451;</div>
+    <div class="promo-text">
+      <span class="tag green">Bestseller</span>
+      <h2>Featured: Scout Database, 20% off your first year</h2>
+      <p>The tool college football programs reach for first. Search player physical attributes and metrics, backed by tracker data our team has checked for accuracy.</p>
+      <div class="pricing"><span class="new">$3,600</span><span class="old">$4,500</span><span>per year</span></div>
+      <div class="code">KICKOFF20</div><br>
+      <a class="btn" href="#products">Get the Scout Database</a>
+      <p class="fine">New customers only. One use per program. Offer ends at the close of the season. This is a fictional offer.</p>
+    </div>
+  </section>
+</main>
+
+<footer>&copy; 2026 Catapult Sports. Products, prices, and promo codes are fictional and created for a class project.</footer>
+</body>
+</html>
